@@ -1,0 +1,70 @@
+import java.util.Scanner;
+
+public class Matrix {
+	static Scanner in = new Scanner(System.in);
+	
+	int[][] matrix1 = new int[3][3];
+	int[][] matrix2 = new int[3][3];
+	int[][] matrix3 = new int[3][3];
+	
+	Thread t1 = new Thread(new Runnable() {
+		
+		public void run() {
+			for (int i = 0; i < 3; i++) {
+				matrix3[0][i] = matrix1[0][i]*matrix2[i][0];
+			}
+		}
+	});
+	
+	Thread t2 = new Thread(new Runnable() {
+		
+		public void run() {
+			for (int i = 0; i < 3; i++) {
+				matrix3[1][i] = matrix1[1][i]*matrix2[i][1];
+			}
+		}
+	});
+	Thread t3 = new Thread(new Runnable() {
+		
+		public void run() {
+			for (int i = 0; i < 3; i++) {
+				matrix3[2][i] = matrix1[2][i]*matrix2[i][2];
+			}
+		}
+	});
+	
+    void doSomething(){
+    	t1.start();
+    	t2.start();
+    	t3.start();
+    }
+	public static void main(String[] args) {
+		System.out.println("Enter matrix 1 : ");
+		Matrix obj = new Matrix();
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				obj.matrix1[i][j] = in.nextInt();
+			}
+			
+		}
+		
+		System.out.println("Enter matrix 2 : ");
+		
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				obj.matrix2[i][j] = in.nextInt();
+			}
+			
+		}
+		obj.doSomething();
+		
+		System.out.println("The resultent Matrix is : ");
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				System.out.print(obj.matrix3[i][j] + " ");
+			}
+			System.out.println("");
+		}
+	}
+
+}
